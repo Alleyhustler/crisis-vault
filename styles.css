@@ -1,0 +1,432 @@
+/* Base Styles */
+:root {
+    --primary-color: #1a1a1a;
+    --accent-color: #646cff;
+    --text-color: #e0e0e0;
+    --background-color: #0a0a0a;
+    --panel-color: #111111;
+    --border-color: rgba(100, 108, 255, 0.3);
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Exo', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    overflow-x: hidden;
+    background-image: 
+      linear-gradient(to bottom, rgba(10, 10, 10, 0.95), rgba(10, 10, 10, 0.8)),
+      url('noise-texture.png');
+    background-attachment: fixed;
+  }
+  
+  /* Typography */
+  h1, h2, h3 {
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 0.05em;
+    font-weight: 700;
+  }
+  
+  /* Header Styles */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 5%;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    background-color: rgba(10, 10, 10, 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .logo img {
+    height: 2.5rem;
+  }
+  
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+/* Social Links */
+.socials {
+    display: flex;
+    gap: 1.5rem;
+  }
+  
+  .social-link {
+    color: var(--text-color);
+    text-decoration: none;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.7;
+    transition: opacity 0.3s, color 0.3s;
+  }
+  
+  .social-link:hover {
+    opacity: 1;
+    color: var(--accent-color);
+  }
+  /* Button Styles */
+  .btn-glow {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    background-color: rgba(100, 108, 255, 0.1);
+    color: var(--text-color);
+    text-decoration: none;
+    border: 1px solid var(--accent-color);
+    border-radius: 4px;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .btn-glow::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(100, 108, 255, 0.2),
+      transparent
+    );
+    transition: 0.5s;
+  }
+  
+  .btn-glow:hover {
+    background-color: rgba(100, 108, 255, 0.2);
+    box-shadow: 0 0 20px rgba(100, 108, 255, 0.4);
+  }
+  
+  .btn-glow:hover::before {
+    left: 100%;
+  }
+  
+  /* Hero Section */
+.hero {
+    min-height: 100vh;
+    padding: 6% 5% 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .hero-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 3rem;
+    max-width: 1200px;
+    width: 100%;
+  }
+  
+  /* Left Column: Vault Interface */
+  .vault-column {
+    flex: 1;
+    max-width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  .vault-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  .vault-door {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .vault-door img {
+    width: 100%;
+    filter: drop-shadow(0 0 20px rgba(100, 108, 255, 0.3));
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  .vault-door img:hover {
+    transform: scale(1.02);
+  }
+  
+  .countdown {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent-color);
+    text-shadow: 0 0 10px rgba(100, 108, 255, 0.6);
+  }
+  
+  .stats {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    padding: 1.5rem;
+    background-color: var(--panel-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    backdrop-filter: blur(5px);
+  }
+  
+  .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .stat-label {
+    font-size: 0.85rem;
+    opacity: 0.7;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  
+  .stat-value {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent-color);
+  }
+  
+  .buy-now {
+    margin-top: 2rem;
+  }
+  
+  /* Right Column: Rules */
+  .rules-column {
+    flex: 1;
+    max-width: 45%;
+    padding: 2rem;
+    background-color: var(--panel-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    backdrop-filter: blur(5px);
+  }
+  
+  .rules-column h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: var(--accent-color);
+    text-shadow: 0 0 10px rgba(100, 108, 255, 0.6);
+  }
+  
+  .rules-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .rule h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: var(--accent-color);
+  }
+  
+  .rule p {
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .hero-container {
+      flex-direction: column;
+      gap: 2rem;
+    }
+  
+    .vault-column,
+    .rules-column {
+      max-width: 100%;
+    }
+  
+    .rules-column {
+      padding: 1.5rem;
+    }
+  }
+
+  /* Raffle Vault Section */
+  .raffle-vault {
+    min-height: 0vh;
+    padding: 0%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .treasure-chest {
+    width: 80%;
+    max-width: 350px;
+    opacity: 0.9;
+    transition: transform 0.5s, opacity 0.5s;
+  }
+  
+  .treasure-chest img {
+    width: 100%;
+    filter: drop-shadow(0 0 30px rgba(100, 108, 255, 0.4));
+  }
+  
+  .treasure-chest:hover {
+    opacity: 1;
+    transform: translateY(-5px);
+  }
+  
+  .winner-animation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+  
+  .confetti {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .winner-text {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--accent-color);
+    text-shadow: 0 0 20px rgba(100, 108, 255, 0.8);
+    z-index: 10;
+  }
+  
+  /* Footer */
+  footer {
+    padding: 1rem 5%;
+    text-align: center;
+    background-color: var(--panel-color);
+    border-top: 1px solid var(--border-color);
+    font-size: 0.85rem;
+    opacity: 0.7;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    header {
+      padding: 1rem 5%;
+    }
+    
+    nav {
+      gap: 1rem;
+    }
+    
+    .socials {
+      gap: 0.5rem;
+    }
+    
+    .hero {
+      padding-top: 25%;
+    }
+    
+    .countdown {
+      font-size: 1.5rem;
+    }
+    
+    .stats {
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    
+    .winner-text {
+      font-size: 2rem;
+    }
+  }
+  
+  /* Animation Effects */
+  @keyframes pulse {
+    0% {
+      opacity: 0.7;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0.7;
+    }
+  }
+  
+  .countdown {
+    animation: pulse 2s infinite;
+  }
+  
+  /* Subtle hover interactions */
+  a, button {
+    transition: all 0.3s ease;
+  }
+  
+  img {
+    transition: all 0.5s ease;
+  }
+
+  
+  /* Wallet Checker Section */
+.wallet-checker {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background-color: var(--panel-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    text-align: center;
+  }
+  
+  .wallet-checker h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--accent-color);
+  }
+  
+  .wallet-checker p {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin-bottom: 1.5rem;
+  }
+  
+  .result-message {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: var(--accent-color);
+    opacity: 0.9;
+  }
