@@ -13,18 +13,59 @@ let vaultsOpened = 0;
 let rafflePercent = 5; // Starting raffle percentage
 const vaultDuration = 10 * 60; // 10 minutes in seconds
 
-// Wallet Connection
+// Solana Wallet Connection
 connectWalletButton.addEventListener('click', async () => {
   try {
-    // Simulate wallet connection (replace with actual Solana wallet integration)
-    alert('Wallet connected successfully!');
-    connectWalletButton.textContent = 'Connected';
+    // Check if Phantom Wallet is installed
+    if (!window.solana || !window.solana.isPhantom) {
+      alert('Please install Phantom Wallet!');
+      return;
+    }
+
+    // Connect to the wallet
+    const provider = window.solana;
+    await provider.connect(); // Request user permission to connect
+    const publicKey = provider.publicKey.toString();
+
+    // Update UI
+    connectWalletButton.textContent = `Connected: ${publicKey.slice(0, 6)}...`;
     connectWalletButton.disabled = true;
+
+    // Check if the wallet holds $VAULT tokens
+    checkWallet(publicKey);
   } catch (error) {
     console.error('Error connecting wallet:', error);
     alert('Failed to connect wallet.');
   }
 });
+
+// Check if the wallet holds $VAULT tokens
+async function checkWallet(publicKey) {
+  try {
+    // Replace with your $VAULT token mint address
+    const VAULT_TOKEN_MINT = new solanaWeb3.PublicKey("YourVaultTokenMintAddress");
+
+    // Create a connection to the Solana cluster
+    const connection = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl('mainnet-beta')); // Use 'devnet' for testing
+
+    // Get the token accounts for the user's wallet
+    const tokenAccounts = await connection.getParsedTokenAccountsByOwner(publicKey, {
+      mint: VAULT_TOKEN_MINT,
+    });
+
+    const resultElement = document.getElementById('wallet-result');
+
+    if (tokenAccounts.value.length > 0) {
+      resultElement.textContent = "✅ You hold $VAULT tokens!";
+    } else {
+      resultElement.textContent = "❌ You do not hold $VAULT tokens.";
+    }
+  } catch (error) {
+    console.error('Error checking wallet:', error);
+    document.getElementById('wallet-result').textContent =
+      "⚠️ An error occurred. Please try again.";
+  }
+}
 
 // Countdown Timer
 function startCountdown() {
@@ -93,62 +134,3 @@ treasureChestElement.addEventListener('click', () => {
 
 // Initialize
 startCountdown();
-
-<script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"></script>
-
-  // Replace with your $VAULT token contract address
-  const VAULT_TOKEN_ADDRESS = "0xYourVaultTokenContractAddress";
-
-  // Replace with the ABI of your $VAULT token contract
-  const VAULT_TOKEN_ABI = [
-    // Minimal ABI to check balance
-    {
-      constant: true,
-      inputs: [{ name: "_owner", type: "address" }],
-      name: "balanceOf",
-      outputs: [{ name: "balance", type: "uint256" }],
-      type: "function",
-    },
-  ];
-
-  async function checkWallet() {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-    const userAddress = await signer.getAddress();
-
-    const vaultTokenContract = new ethers.Contract(
-      VAULT_TOKEN_ADDRESS,
-      VAULT_TOKEN_ABI,
-      signer
-    );
-
-    try {
-      const balance = await vaultTokenContract.balanceOf(userAddress);
-      const resultElement = document.getElementById("wallet-result");
-
-      if (balance.gt(0)) {
-        resultElement.textContent = "✅ You hold $VAULT tokens!";
-      } else {
-        resultElement.textContent = "❌ You do not hold $VAULT tokens.";
-      }
-    } catch (error) {
-      console.error("Error checking wallet:", error);
-      document.getElementById("wallet-result").textContent =
-        "⚠️ An error occurred. Please try again.";
-    }
-  }
-
-  document
-    .getElementById("check-wallet")
-    .addEventListener("click", async () => {
-      if (window.ethereum) {
-        try {
-          await window.ethereum.request({ method: "eth_requestAccounts" });
-          checkWallet();
-        } catch (error) {
-          console.error("User denied wallet access:", error);
-        }
-      } else {
-        alert("Please install a Web3 wallet like MetaMask.");
-      }
-    });
