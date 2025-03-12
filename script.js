@@ -63,7 +63,7 @@ async function checkWallet(publicKey) {
   } catch (error) {
     console.error('Error checking wallet:', error);
     document.getElementById('wallet-result').textContent =
-      "⚠️ An error occurred. Please try again.";
+      "No token found, try again you jeeter";
   }
 }
 
