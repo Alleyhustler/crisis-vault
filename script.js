@@ -63,7 +63,7 @@ async function checkWallet(publicKey) {
   } catch (error) {
     console.error('Error checking wallet:', error);
     document.getElementById('wallet-result').textContent =
-      "No token found, try again you jeeter";
+      "⚠️ An error occurred. Please try again.";
   }
 }
 
@@ -134,3 +134,4 @@ treasureChestElement.addEventListener('click', () => {
 
 // Initialize
 startCountdown();
+
